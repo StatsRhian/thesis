@@ -1,4 +1,4 @@
-# Phd Thesis: Efficient analysis of data streams
+# Phd Thesis: Efficient Analysis of Data Streams
 
 ## Abstract
 
