@@ -1,0 +1,13 @@
+\documentclass{article}
+
+\begin{document}
+
+
+In order to show this we need to show
+
+\begin{enumerate}
+\item $\|u\| = 1$
+\item $u \perp D^{\frac{1}{2}} \mathbb{1}$ 
+\end{enumerate}
+
+\end{document}

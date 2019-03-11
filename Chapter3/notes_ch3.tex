@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\begin{document}
+ \section{Multicollinearity}
+
+Occurs when two or more predictors are moderatley or highly correlated.
+
+Pitfalls
+The estimated regression coefficient of any one variable depends on wchi other predictors are included in the mode
+The precision of the estimateed regression coefficient decreases as more predictors are added to the model
+
+When predictrs are highly correlated, the answers ytou get depend on the predictors in the model
+
+When predictor varoables are correlated, the estimated regression coefficient of any one variable depends on which other predictor variables are incldued in the model.
+
+When predictor variables are correlated, the precision of the estimated regression coefficients decreases are more prediotrs variables are added to the mdoel. = unstable.
+
+It is okay to use an estimated regression model to predict y or estimate My as long as you do so within the scope of the model. 
+
+\section{Recursive Least Squares}
+
+Standard linear regression
+$y_t = \beta_t x_t + \epsilon_t$
+Response variable, parameter estimates, exploratory variables, error assumed to be normal.
+
+Define the sum of errors 
+
+$V_n(\beta) = \sum_{k = 1}^N [ y(k) - x(t)\beta]^2$
+
+Differentiating $V_n(\beta)$ wrt $\beta$ and setting equal to zero gives the standard formulation for the beta least squares estimation
+
+$\hat{\beta}_{(N)} = [X_{(N)}^\top X_{(N)}]^{-1}X_{(N)}^\top Y_{(N)}$
+
+Now we observe a new sample $(x_{(N+1)},y_{(N+1)})$.
+
+We could recomputer the parameter estimate $\hat{\beta}_{(N+1)}$ as bove, but as $n$ gets larger this is harder to compute. Instead we wish to derive $\hat{\beta}_{(N+1)}$ as an update of $\hat{\beta}_{(N)} $
+
+We can write the new parameter estimate as 
+
+Lets define the $p \cross p$ matrix $S_{(N)} = (X^\top_{(N)},X_{(N)} )$
+
+we have 
+ $S_{(N+1)} = (X^\top_{(N+1)},X_{(N+1)} ) = ([X^\top_{N}x_{N+1}])$
+
+
+\end{document}

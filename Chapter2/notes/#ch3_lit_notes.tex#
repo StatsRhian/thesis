@@ -1,0 +1,96 @@
+
+%---------------- COMMENT FOR IMPORTING ----------------------
+\RequirePackage{lineno}
+\documentclass[10pt]{report}
+%\pagestyle{headings}
+\input{../packages_input}
+\usepackage[authoryear,round]{natbib}
+\begin{document}								%Comment for importing
+\setpagewiselinenumbers
+\linenumbers
+\graphicspath{{Chapter3/figures/}}
+%-------------------------------------------------------------
+
+
+\section{Literature Review Notes }
+
+
+ \textbf{Lower Bounds for the Partitioning of Graphs \citep{Donath1973}}. Identified the link between graph partioning and the eigenvalues of the adjacancy matrix.
+
+ \textbf{\citep{Fielder1973}} notes the link between a two way graph partion and the importance of the second eigenvector of an adjacancy matrix. 
+
+For a more detailed summary of the history of spectral clustering, see \textbf{A tutorial on Spectral Clustering \citep{Luxburg2008}} Tutorial with detailed history of spectral clustering.  
+
+\textbf{An optimal graph theoretic approach to data clustering: theory and its application to image segmentation \citep{Wu1993}} favours removing small sections and isolated nodes of the graph. This may not always be applicatable - IMAGE to show? The main proposal from Malik was to consider the cut function as a fraction of the total edge connections to all nodes in the graph (instead of simply just usings the total edge weight connecting the two partitions. This subtle yet important distiction provides us with the highly acclaimed normalized cut for graph partiionaing - an integral part of spectral clustering algorithms.  
+
+\textbf{Spectral Partitioning: The More Eigenvectors, The Better \citep{Alpert1995}} Presents  empirical results which show that the popular spectral bi-partioning (repeated use of partioning based on the 2nd eigenvector) is inferior compared with creating one partion using many eigenvectors. 
+
+\textbf{Normalized cuts and image segmentation. \citep{Malik2000}} First paper to really highlight the use of Spectral Clustering to the Machine Learning community. Treated image segmentation as a graph-partioning problem. Criterion incorporates both the dissimilarity between groups and the similarity within group. Argued that the minumum cut  did not always provide the best solution. Minimizing their normalized cut is an NP-complete problem but they show that is possible for them to find an approximate discrete solution efficiently. 
+\begin{quote}
+``Image partitioning is to be done from the big picture downward, rather like a painter first marking out the major areas an then filling in the details.'' - Jianbo Shi and Jitendra Malik in relation to image segmention structure leading to hierarchical solutions - not a final solution.
+\end{quote}
+
+\textbf{On Spectral Clustering: Analysis and an algorithm. \citep{Ng2001}} One of the first papers to provide theoretical guarantees on performance for spectral clustering algorithms.  Authors writing about spectral clustering before this time noted the good performance of spectral clustering empircally.  Their theoretical guarantee depends on the eigengap, and they provide intuition of the role of the eigien gap by drawing parralels with the mixing for a random walk. They prove that their spectral clustering algorithm will produce a reasonable clustering given certain assumptions that the clusters are well-spaced using matrix perturbation theory. Their version of the spectral clustering algorithm has been popularly cited throughout the literature and indeed it is the one that we shall refer to. They suggest a way to choose parameter $\sigma^2$; search over all possiblities and select the value which gives the tightest clustering in the $Y$ space. 
+
+\textbf{Self-tuning spectral clustering \citep{Zelnik-Manor2004}} Discusses the of scaling parameter $\sigma$ and the true number of clusters $K$. They argue that for troublesome data which has a ``Cluttered'' background, or multi-scale data, one global parameter choice for sigma is not sufficient. Before this, the most common method for choice of parameter was manually. \citep{Ng2001} automaticall chose sigma by running their clustering algorithm repeatedly for a number of values and selecting the one which provides least distorted clusters of the rows of Y. In their localised paramter, each datapoint has it's own sigma value calcualted based on it's neighbourhood (here K = 7). This might be overkill. Their contribution for automatically choosing the true number of clusters (for the k-means step) is to use the eigenvectors to inform a choice as opposed to the eigenvalues. The eigenvalues are commonly used to estimate K but if the groups are not clearly seperated, idnetifying the numebr of groups from eigenvalues alone is not trivial. 
+
+\textbf{Spectral Clustering with Perturbed Data \citep{Huang2009}}
+Devise a mis-clustering rate for use in perturbation analysis.
+
+\textbf{Fast Approximate Spectral Clustering \citep{Yan2009}}
+Data summarising permutation step first. Feed less data into the spectral clustering bottleneck. Uses a data reduction technique such as kmeans to select some ``representative points''.  Made theoretical connection between the data reduction preprocessing step  and the effect on the final clustering. They prove the effect of , given that the original data is reduced using K-means (KASP) or a Random Project tree (RASP).
+
+
+
+
+\textbf{Incremental spectral clustering by efficiently updating the eigen system \citep{Ning2010}} Updates eigenvalues incrementally. A change in verticies or edge can be used to algorithmically update the eigenvalues and eigenvectors directly, however the authors recommend fully reclustering in batch to minimise cumulative errors. The independent updating of eigenvectors may lead to the loss of the orthogonality property. Also if the spatial neighbourhoods of often changing verticies are large it can be computationally hard as the eigenvalue step involves the invertion of a matrix.
+
+\textbf{Local Information-based fast approximate spectral clustering \citep{Cao2014}} Main two contributions sparse affinity graph, and local interpolation. (Li-ASP). Uses the NJW spectral clustering algorithm \citep{Ng2001}. Argues that the time constraints are great. Links to KASP. Uses local interpolation. Highlights the problems that can occur if a single center is miss-assigned to the wrong cluster. 
+
+\textbf{Efficient eigen-updating for spectral graph clustering \citep{Dhanjal2014} }
+
+\textbf{Spectral clustering of high-dimensional data exploiting sparse representation vectors \citep{Wu2014}}
+
+\textbf{Spectral Methods meet EM: A Provably Optimal Algorithm for Crowdsourcing \citep{Zhang2014}}
+
+
+\citep{Kannan2004}
+
+\citep{Guattery1998}
+\citep{Hagen1992}
+
+\citep{Meila2001}
+
+\citep{Pothen1990}
+
+\citep{Stoer1997}
+
+\citep{Tibshirani2001}
+
+\citep{Luxburg2005}
+
+\citep{Luxburg2007}
+
+\citep{Dhanjal2011}
+
+ \citep{Kong2011} Used un-normalised and representative poitns - like \citep{Yan2009}. Soluation updated when verticies change (not edges) CHECK THIS. 
+
+\textbf{Incremental Spectral Clustering and Its Application To Topological Mapping \citep{Valgren2007}} 
+
+\textbf{Incremental spectral clustering and seasons: Appearance-based localization in outdoor environments \citep{Valgren2008}}
+
+\citep{Ning2007}
+
+Nystrom efficiency methods?  Sampling means we might miss out on important information. Explain how it works \citep{Williams2001} \citep{Fowlkes2004}
+
+
+
+%-------------- COMMENT FOR IMPORTING ----------------------
+\pagebreak
+\bibliographystyle{plainnat}
+\bibliography{/home/rhian/Dropbox/library,/home/rhian/Dropbox/rhian}
+\end{document}							
+%-------------------------------------------------------------
+
+
+

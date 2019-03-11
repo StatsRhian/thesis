@@ -1,0 +1,146 @@
+
+\RequirePackage{lineno} % need to install texlive-humanities
+\documentclass[12pt, a4]{report}
+\input{packages_input}
+ 
+       
+%---------------------------------------------------------------
+%---BEGIN DOCUMENT----------------------------------------------
+%---------------------------------------------------------------
+    
+\begin{document}     
+
+% %Titlepage
+% \thispagestyle{empty}
+% \begin{center}
+% \begin{minipage}{0.75\linewidth}
+%     \centering   
+% %Thesis title
+%     \vspace{2cm}
+%   \Huge\textbf{Analysis of Data Streams}\par %Classification methods for sensor-based signal monitoring
+%     \vspace{2cm}
+% %Author's name
+%     {\Large Rhian Natalie Davies\par}
+%     \vspace{2cm}
+% %STORi logos=
+%     \begin{center}
+%     \includegraphics[width=0.5\linewidth]{figures/stori.png}             
+%     \end{center}
+%     \vspace{2cm}
+% %Degree
+%     {\Large Submitted for the degree of Doctor of Philosophy at Lancaster University.\par}
+%     \vspace{1cm}
+
+% %Date
+%     {\Large March 2017}
+% \end{minipage}
+% \end{center}
+% \clearpage
+
+% \pagestyle{plain}
+
+% \setpagewiselinenumbers
+ 
+% \modulolinenumbers[1]
+% \thispagestyle{empty}
+
+
+% \pagebreak
+% \pagenumbering{Roman}
+% \setcounter{page}{1}
+% \input{Abstract/Abstract.tex} %No pre-emble, no begin and end document and no bibtex
+
+% \pagebreak
+%  \input{Acknowledgements/Acknowledgements.tex} %No pre-emble, no begin and end document and no bibtex
+
+% \pagebreak
+%  \chapter*{Declaration}
+% \addcontentsline{toc}{chapter}{Declaration}
+
+% %\begin{flushright}  
+% I declare that the work in this thesis has been done by myself and has not been submitted elsewhere for the award of any other degree.
+% \begin{flushright}
+%   Rhian Davies
+%  \end{flushright}
+
+% \pagebreak
+% \tableofcontents
+% \addcontentsline{toc}{chapter}{Contents}
+
+\pagebreak
+%\listoffigures
+%\addcontentsline{toc}{chapter}{List of Figures}
+ 
+\pagebreak
+%\listoftables
+%\addcontentsline{toc}{chapter}{List of Tables}
+
+\pagebreak
+%\addcontentsline{toc}{chapter}{List of Abbreviations}
+%\input{AbbrevList/AbbrevList.tex} %No pre-emble, no begin and end document and no bibtex
+
+\pagebreak
+%\addcontentsline{toc}{chapter}{List of Symbols}
+%\input{SymbolList/SymbolList.tex}  %No pre-emble, no begin and end document and no bibtex
+
+%---------------------------------------------------------------
+\let\oldchapter\chapter
+\renewcommand{\chapter}[1]{
+	\setcounter{figure}{0}
+	\setcounter{table}{0}
+	\setcounter{equation}{0}
+	\oldchapter{#1}
+}
+\pagebreak
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%---------------------------------------------------------------
+%---CHAPTER 1 - Introduction --------------------------------------------------
+%---------------------------------------------------------------
+%\input{Chapter1/Chapter1.tex} %No pre-emble, no begin and end document and no bibtex
+
+% -----------------------------------------------------------------------------------
+%---CHAPTER 2 - Online Spectral Clustering ------------------------------------------
+%---------------------------------------------------------------
+%\input{Chapter2/Chapter2.tex} %No pre-emble, no begin and end document and no bibtex
+
+%---------------------------------------------------------------
+%---CHAPTER 3 - Analysis of Insurance Data -------------------------------------------
+%---------------------------------------------------------------
+\input{Chapter3/Chapter3.tex} %No pre-emble, no begin and end document and no bibtex
+
+%---------------------------------------------------------------
+%---CHAPTER 4  - Compressive Sensing Background Subtraction--------------
+%---------------------------------------------------------------
+%\input{Chapter4/Chapter4.tex} %No pre-emble, no begin and end document and no bibtex
+
+%---------------------------------------------------------------
+%---CHAPTER 5 - Conclusions ------------------------------------------------
+%---------------------------------------------------------------
+%\input{Chapter5/Chapter5.tex} %No pre-emble, no begin and end document and no bibtex
+
+%---------------------------------------------------------------
+%---CHAPTER A --------------------------------------------------
+%---------------------------------------------------------------
+ 
+%\appendix
+%\chapter{Appendix}
+%\input{Appendix/Appendix.tex} %No pre-emble, no begin and end document and no bibtex
+    
+%---------------------------------------------------------------
+%---BIBLIOGRAPHY------------------------------------------------
+%---------------------------------------------------------------
+   
+ 
+\pagebreak
+\let\chapter\oldchapter
+\addcontentsline{toc}{chapter}{Bibliography}
+%\bibliographystyle{plainnatnourl}
+%\bibliographystyle{apalike}
+
+\bibliographystyle{plainnatnourl.bst} %This one or plainnnat
+\bibliography{/home/rhian/Dropbox/library,/home/rhian/Dropbox/rhian}
+
+\end{document}
+

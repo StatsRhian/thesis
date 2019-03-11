@@ -1,0 +1,50 @@
+\contentsline {chapter}{Abstract}{I}
+\contentsline {chapter}{Acknowledgements}{II}
+\contentsline {chapter}{Declaration}{III}
+\contentsline {chapter}{Contents}{VI}
+\contentsline {chapter}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {1.1}Thesis Outline}{4}
+\contentsline {chapter}{\numberline {2}Spectral Clustering for Data Streams}{7}
+\contentsline {section}{\numberline {2.1}Introduction}{7}
+\contentsline {section}{\numberline {2.2}Spectral Clustering Background}{8}
+\contentsline {subsection}{\numberline {2.2.1}Motivation}{8}
+\contentsline {subsection}{\numberline {2.2.2}Graph cut problems}{10}
+\contentsline {subsection}{\numberline {2.2.3}Choice of affinity matrix}{15}
+\contentsline {section}{\numberline {2.3}Advanced Spectral Clustering}{17}
+\contentsline {subsection}{\numberline {2.3.1}Large-scale Spectral Clustering}{17}
+\contentsline {subsection}{\numberline {2.3.2}Incremental methods for Spectral Clustering}{20}
+\contentsline {section}{\numberline {2.4}Clustream for Spectral Clustering}{23}
+\contentsline {subsubsection}{Micro-clustering}{23}
+\contentsline {subsubsection}{Macro-clustering stage}{27}
+\contentsline {subsection}{\numberline {2.4.1}Weighting the Micro-Clusters}{30}
+\contentsline {section}{\numberline {2.5}Experimentation}{37}
+\contentsline {subsubsection}{The Algorithms}{37}
+\contentsline {subsection}{\numberline {2.5.1}Methodology}{38}
+\contentsline {subsection}{\numberline {2.5.2}Performance Measures}{39}
+\contentsline {subsection}{\numberline {2.5.3}Simulated Results}{41}
+\contentsline {subsection}{\numberline {2.5.4}Texture data}{47}
+\contentsline {subsection}{\numberline {2.5.5}Pendigit data}{48}
+\contentsline {subsection}{\numberline {2.5.6}Non-stationary data}{50}
+\contentsline {section}{\numberline {2.6}Conclusion and Future Work}{58}
+\contentsline {chapter}{\numberline {3}Segmenting acoustic sensing signals}{60}
+\contentsline {section}{\numberline {3.1}Introduction}{60}
+\contentsline {section}{\numberline {3.2}Motivation}{61}
+\contentsline {subsection}{\numberline {3.2.1}What is Distributed Acoustic Sensing?}{61}
+\contentsline {subsection}{\numberline {3.2.2}Relevant literature}{62}
+\contentsline {subsection}{\numberline {3.2.3}Applying Clustream}{63}
+\contentsline {section}{\numberline {3.3}Analysis}{64}
+\contentsline {section}{\numberline {3.4}Conclusion}{65}
+\contentsline {chapter}{\numberline {4}The Effect of Recovery Algorithms on Compressive Sensing Background Subtraction}{66}
+\contentsline {section}{\numberline {4.1}Introduction}{67}
+\contentsline {section}{\numberline {4.2}Related Works}{69}
+\contentsline {section}{\numberline {4.3}Methodology}{71}
+\contentsline {subsection}{\numberline {4.3.1}Sparse and Compressible Signals}{71}
+\contentsline {subsection}{\numberline {4.3.2}Compressive Sensing}{72}
+\contentsline {subsection}{\numberline {4.3.3}Recovery Algorithms}{73}
+\contentsline {subsubsection}{Convex Optimisation}{73}
+\contentsline {subsubsection}{Greedy Algorithms}{75}
+\contentsline {subsection}{\numberline {4.3.4}Background Subtraction with Compressive Sensing}{77}
+\contentsline {section}{\numberline {4.4}Performance Evaluation}{79}
+\contentsline {section}{\numberline {4.5}Conclusions and Further Work}{83}
+\contentsline {chapter}{\numberline {5}Conclusions and Future Work}{85}
+\contentsline {chapter}{Bibliography}{87}

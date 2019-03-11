@@ -1,0 +1,69 @@
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Aggarwal et~al.(2003)Aggarwal, Watson, Ctr, Han, Wang, and
+  Yu]{Aggarwal2003}
+Charu~C. Aggarwal, T.~J. Watson, Resch Ctr, Jiawei Han, Jianyong Wang, and
+  Philip~S. Yu.
+\newblock {A Framework for Clustering Evolving Data Streams}.
+\newblock \emph{Proceedings of the 29th international conference on Very large
+  data bases}, pages 81--92, sep 2003.
+
+\bibitem[Boone et~al.(2014)Boone, Ridge, Crickmore, and Onen]{Boone2014}
+K.~Boone, A.~Ridge, R.~Crickmore, and D.~Onen.
+\newblock {Detecting Leaks in Abandoned Gas Wells with Fibre-Optic Distributed
+  Acoustic Sensing}.
+\newblock In \emph{International Petroleum Technology Conference}.
+  International Petroleum Technology Conference, jan 2014.
+\newblock ISBN 978-1-61399-322-4.
+
+\bibitem[Chen and Gupta(2012)]{Chen2012}
+Jie Chen and Arjun~K. Gupta.
+\newblock \emph{{Parametric Statistical Change Point Analysis}}.
+\newblock Birkh{\"{a}}user Boston, Boston, 2012.
+\newblock ISBN 978-0-8176-4800-8.
+
+\bibitem[Eckley et~al.(2011)Eckley, Fearnhead, and Killick]{Eckley2011b}
+Idris~A. Eckley, Paul Fearnhead, and Rebecca Killick.
+\newblock {Analysis of changepoint models}.
+\newblock In David Barber, A.~Taylan Cemgil, and Silvia Chiappa, editors,
+  \emph{Bayesian Time Series Models}, chapter~10, pages 205--224. Cambridge
+  University Press, Cambridge, 2011.
+
+\bibitem[Page(1954)]{Page1954}
+Es~Page.
+\newblock {Continuous inspection schemes}.
+\newblock \emph{Biometrika}, 41\penalty0 (1):\penalty0 100--115, jun 1954.
+
+\bibitem[Rosenberg and Hirschberg(2007)]{Rosenberg2007}
+Andrew Rosenberg and Julia Hirschberg.
+\newblock {V-measure: A conditional entropy-based external cluster evaluation
+  measure}.
+\newblock \emph{Proceedings of the 2007 Joint Conference on Empirical Methods
+  in Natural Language Processing and Computational Natural Language Learning},
+  1\penalty0 (June):\penalty0 410--420, 2007.
+
+\bibitem[Silkina(2014)]{Silkina2014}
+Tatiana Silkina.
+\newblock \emph{{Application of Distributed Acoustic Sensing to Flow Regime
+  Classification}}.
+\newblock Master's thesis, Norwegian University of Science and Technology,
+  2014.
+
+\bibitem[van~der Horst et~al.(2014)van~der Horst, {Den Boer}, {In 't Panhuis},
+  Wyker, Kusters, Mustafina, Groen, Bulushi, Mjeni, Awan, Rajhi, Molenaar,
+  Reynolds, Paleja, Randell, Bartlett, and Green]{VanderHorst2014}
+Juun van~der Horst, Hans {Den Boer}, Peter {In 't Panhuis}, Brendan Wyker, Roel
+  Kusters, Daria Mustafina, Lex Groen, Nabil Bulushi, Rifaat Mjeni,
+  Kamran~Fahmeed Awan, Salma~Mohammed Rajhi, Mathieu~M Molenaar, Alan Reynolds,
+  Rakesh Paleja, David Randell, Richard Bartlett, and Kevyn Green.
+\newblock {Fibre Optic Sensing For Improved Wellbore Production Surveillance}.
+\newblock In \emph{International Petroleum Technology Conference}.
+  International Petroleum Technology Conference, jan 2014.
+\newblock ISBN 978-1-61399-322-4.
+
+\end{thebibliography}

@@ -1,0 +1,139 @@
+   %---------------- COMMENT FOR IMPORTING ----------------------
+%\RequirePackage{lineno}				
+%\documentclass[12pt]{report}		
+%\pagestyle{headings}
+%\input{ST-input2}							
+
+%\setcounter{chapter}{0}
+%\begin{document}								
+%\setpagewiselinenumbers
+%\linenumbers
+%\tableofcontents
+%-------------------------------------------------------------
+
+\chapter{Introduction}
+
+%Notes on writing - Pyramid system
+% ideas at any level must be summaries of ideas gruoped below them
+% Ideas in each grouping must be of the same kind of idea
+% Ideas in each grouping must be logically ordered
+% Situation, Complication, Question, Answer
+% Mutually exclusive, collectively exhaustive.
+
+% Introduction - age of information
+% 3V's - velocity is key
+
+The volume of data collected on a daily basis is staggering.  In 2013,  IBM stated  that over 90\% of the world's data was created in the last two years. This creates a challenge for researchers and practitioners as computers may not have the memory requirements to deal with such large quantities of data, and their algorithms may not run fast enough or even at all.  Big data \citep{Buhlmann2016} is a term used to refer to data sets so huge that traditional statistical techniques may not be directly applicable.% But what is it exactly that makes big data big and what are the research challenges and opportunities arising from big data? 
+
+The challenge of big data can be defined in terms of the three V's \citep{Laney2001}; volume, variety and velocity. Volume refers to the vast amount of data collected. Variety relates to the many different types of data it is possible to collect from multiple sources such as text, images, GPS location and tweets.  The velocity is the speed at which the data is observed. Velocity is perhaps the least studied of the three V's within Statistics and is most commonly found in the analysis of data streams. A \textit{data stream} \citep{Aggarwal2007, Gama2007}  is data which is observed continuously in an ordered sequence. Data streams arise in many different applications. Examples include retail, e.g. Macy's use of advanced data collection \citep{Kleijnen2016}; oil and gas including the development of the digital oil field which uses sensors throughout oil wells to monitor flow and other operational characteristics \citep{Cramer2008, Patri2012}.
+
+%To introduce velocity we must introduce data streams.  A data \textit{data stream} \citep{Aggarwal2007, Gama2007} stream is data which is observed continuously in an ordered sequence. The velocity is the speed at which the data is observed in a data stream. Velocity is perhaps the least studied of the three V's within Statistics, however the analysis of data streams is of great importance for a number of applications. 
+
+%Data streams arise in many industrial applications but velocity is perhaps the least studied of these aspects within Statistics.
+% and therefore the ability to analyse data streams is an important problem.
+
+% Examples all datastreams with references. What links them all? Data streams. Primary focus of Thesis.
+
+% Macys
+%In 2010, the giant American store Macy's was manually entering customer data into Excel.  Recently, they changed their strategy \citep{Kleijnen2016} collecting customer interactions automatically in-store, online and even using twitter streams to develop a dynamic pricing system. Now, every day they are capable of altering the prices of 73 million items in near real-time based on estimated customer demand and current inventory. Sales increased by 10\%.
+
+% PredPolice
+%In 2012, Kent police travelled to Los Angeles to learn about PredPol from the L.A.P.D. This software uses the date, time and location of logged crimes to predict potential crime hot spots in real time, allowing the police to target patrols to those areas. A recent study \citep{Mohler2015} suggests that using this system lead to 1.4-2.2 times as much crime detected compared to using a dedicated crime analyst. 
+
+% Digital Oil Field
+%Meanwhile, the energy sector has seen the creation of the digital oil field \citep{Cramer2008, Patri2012}. By placing constantly transmitting sensors directly onto drilling and pumping machines it is possible for energy companies to detect tiny leaks in piping almost immediately, enabling them to fix the problem before causing environmental damage and loss of product. These sensors can also be used to predict where the next leak is likely to occur, allowing  preventative repairs to be made.
+
+%Insects
+%Insects borne disease like malaria kill at least one million people a year \citep{Murray2012}. There are 3,528 different species of mosquito, but less than 5\% of them carry human disease and only the females suck blood. Professor Eamonn Keogh from the University of California Riverside \citep{Chen2014, Harkness2016} has created a way to sort insects in real time, classifying them by species and gender based on the pitch of their whine leading to the implementation of cheap and effective localised intervention campaigns. 
+
+% Linking them - What is a data stream, example? snapshot?
+% Features of  a data stream
+% Challenges of datas stream
+
+%Discussion section
+%What do these three stories have in common?  
+
+The rate at which data arrives could be as fast as millions of data points each hour such as in the Macy's and oil company examples. However, even if the data stream seems more manageable if the speed that data arrives is fast relative to the available processing power, storage capabilities and transmission rate then this still provides a challenge. % (such as insects flying past a sensor in the third example) 
+
+ It is possible for a data stream to be unbounded in size by which we mean that there is no time point where the data stream ends.  This is common in data streams found in meteorology, the stock market, online shopping and social media. Since these data streams are potentially endless in size it is not possible to store the data in its entirety. This means that instead of performing analysis once the data has been collected, analysis must be performed and updated in real time as new data points are observed. This leads to another issue sometimes referred to as the one-pass-access problem. As data streams are processed serially, once a data point has been seen it is discarded and cannot be accessed again. Some seemingly trivial analyses such as computing the median of the data become impossible in the data stream setting because of this one-pass-access issue.  In fact, many statistical techniques make assumptions which do not hold in the data streaming scenario. A summary of the restrictions imposed by data streams is given below \citep{Silva2013}:
+
+%generated by some unknown stationary probability distribution
+\begin{enumerate}
+\item Data objects arrive continuously.
+\item There is no control over the order in which the data objects should be processed.
+\item The size of the stream is potentially unbounded.
+\item Data objects are discarded after they have been processed.
+\item The unknown data generation process is possibly non-stationary.
+\end{enumerate}
+
+Given the restrictions above, how can we perform analysis on a data stream? If the issue was just the size of the data then we could sample and perform analysis on that sample. However as the data stream cannot be stored, it is not possible to take a sample of the whole stream. We could sub sample as we go along based on the frequency storing every 100th data point. However, if the data stream is unbounded then eventually this method will fail.
+
+What is needed is a \textit{representative data summary} of the data stream that captures the new data points but still retains some historical information. An ideal representative data summary will:
+
+\begin{enumerate}
+\item Be computationally easy to update.
+\item Store historical information.
+\item Forget historical information if it becomes obsolete.
+\item Adapt if the underlying generating process of the data stream changes.
+\item Be informative enough to use in statistical analysis.
+\end{enumerate}
+
+One possible representative data summary is a window of the most recently observed data points. A window is computationally easy to update as it uses a one-in-one-out update policy. However, the way that it deals with historical information is naive. Any data points outside the window are discarded, which makes the choice of window size particularly important.  A small window will react to new data quickly but will have no older knowledge, whilst a large window will retain historical information but may be slow to update to a change in the data stream.  This will naturally infer a temporal bias and a poorly selected window size may lead to missing important seasonal trends such as the effect of Christmas on shopping sales. 
+
+We discussed above how it is not possible to calculate the median of a data stream. It is however quite simple to keep a track of the running mean by  storing the sum of the data points and the number of data points observed so far. This is another simple example of a representative data summary.  Again it is computationally easy to update and all historical information can be retained. However, in order to perform clustering or regression on the data stream we will need a richer data summary than just a running mean. 
+
+Once a suitable representative data summary has been selected,  this can then be used to perform analysis such as clustering or regression. However standard techniques might need to be adapted to work on these data summaries as opposed to on the raw data. In this thesis we explore the use of representative data summaries on the analysis of data streams.
+
+%Given the restrictions above, how can we perform analysis such as finding patterns or clusters on a non-stationary data stream? Sampling a data stream isn't as simple as sampling purely static data due to restrictions 2 and 4. We could sample by selecting a window of the most recent data however this will infer a temporal bias and we may miss important seasonal trends such as the effect of Christmas on shopping sales. We require a \textit{representative data summary} to be calculated in such a way that analysis can still be performed.  New methods are required to create useful data summaries and to use these summaries in a sensible way to perform analysis on the stream. Simply running an offline algorithm on all the data observed so far may not be feasible for three main reasons, storage capacity, transmission,  and ability to access the data. %computational costsx
+%The first challenge is physically storing all of the data. As a data stream is a potentially endless sequence of observations obtained at a high frequency it may not be possible to store all of the data in its entirety. Therefore the older data has to be thrown away to make room for the new arrivals which is a problem if we wish to incorporate historical data into the clustering.
+%Sometimes, even transmitting data from it's point of collection to a research centre can be challenging because it is difficult to broadcast the data stream over a network. This problem occurs often as scientists are interested in exploring remote areas, placing sensors to track animals in deep jungle, monitoring ice levels in the Arctic or sending images taken on Mars back to Earth. 
+%Secondly, algorithms can be computationally expensive.As data streams are potentially unbounded in length, standard algorithms cannot be used.Therefore we need to be able to update our idea of the data as new points arrive efficiently and simply with little computational issues.
+%Finally, data streaming is often classed as a one-pass-access problem. The data is processed serially, and once a data point has been seen, it is discarded and cannot be accessed again. Some traditional algorithms require many passes or iterations of the data and therefore are not directly suitable for the online data streaming case.
+
+%Transforming a data stream into an informative yet efficient data summary, and unravelling that summary to infer about the data stream as a whole. This raises a number of challenges. The data summary must be efficient to store and transmit and quick to update. Once transmitted to a central server we must be able to still perform analysis on the summaries and ideally have some idea of how good this is as compared to if we could perform analysis on the full data stream. 
+
+% Variety -Wonga
+%Variety relates to the many different types of data it is possible to collect  mainly due to the Internet and the ability to place sensors almost anywhere. Smart phones are constantly collecting and transmitting data to a variety of apps such as your location, the orientation of your phone and the photo you have just taken of your lunch. Wonga.com, a popular payday loan company claims to use over 8,000 different features when deciding whether to grant a customer a loan, a decision which is made in less than six minutes. Instead of  using just the customer's financial history, Wonga can collect information on the browser you use to visit their website, an estimate of your location from your I.P address and the time of day that you access their website. They also encourage customers to link their Facebook profile to their Wonga account, allowing Wonga access to details such as your job, religious views, hobbies and even the news feed of your friends activities.  All of this information can be combined with your financial history to build a fuller picture to predict whether or not you are likely to pay back the loan. 
+
+%With such great variety of data features available a challenge arises - the curse of dimensionality. As the number of features increases it becomes difficult to use some techniques which work well in lower dimensions. Data points become increasingly sparse as the dimensionality increases \citep{Steinbach2004} and distances metrics such as the Euclidean distance which is required to calculate k-means clustering become meaningless. One research area to emerge from the challenge of high-dimensionality is dimension reduction. These techniques aim to reduce the effect of irrelevant features by finding a low dimensional representation of the data whilst retaining as much information as possible. Once transformed into a lower dimensional representation, analysis will be computationally feasible. One common dimension reduction technique is Principle Component Analysis (PCA). In PCA, the aim is to explain the maximum amount of variance in the data set using the fewest number of principle components. Although this is an interesting area of research we do not consider dimension reduction any further in this thesis. 
+
+%- How can we summarise a stream?  Simplest technique is windowing. This is easy but creates a bias to local data. Could be a problem when trying to deal with long term trends. The most popular method is Clustream. 
+%- How can we perform analysis on summarised stream data, and how does it differ to running on the full data set?
+
+%Finding patterns and regularities in big data sets (financial, scientific, social media, medical, online shopping)
+%Transmission costs can also be high, especially when collecting from remote locations. The need to constantly collect and send data from remote locations (whether a plain in central Africa, or a crater on Mars)
+
+%\section{Clustering}
+%What is a cluster. Why do we care?
+%Finding patterns in data. /Big data. Yes there is a hype. Space is cheap.
+%streaming data
+%requires new methods
+%Astronomy. Space example, tracking comets/asteroids, images from Mars
+%Financial/shopping data large sample. Bias - recent data won't capture Christmas shopping trends. When we throw away data what do we lose?
+%Clustering images. Define clustering
+
+\section{Thesis Outline}
+\label{sec:outline}
+%\ref{chap:spectral}
+
+In Chapter 2 we consider the problem of identifying groups or clusters in a data stream.  Many different types of clustering algorithms exist, centroid type methods such as k-means \citep{MacQueen1967, Lloyd1982} and density based algorithms like DB-Scan \citep{Ester1996}. We restrict our interests to \textit{Spectral Clustering}, a clustering method which uses the eigenvalues of an \textit{affinity matrix} of the data to perform dimension reduction and cluster in the lower dimensional space. Spectral Clustering is popular, offers good empirical performance and can handle tricky, non standard data sets. However, it is not possible to run Spectral Clustering directly on a data stream due to a number of
+the challenges described above. In order to adapt Spectral Clustering for data streams we need to combine it with a data streaming specific algorithm.
+
+Clustream \citep{Aggarwal2003} is a popular algorithm used to handle data streams by creating and updating a representative data summary of the stream. We apply Clustream to summarise the data stream and perform Spectral Clustering on those data summaries which has not been explored before in the literature. We investigate how best to incorporate the data summaries in to the Spectral Clustering algorithm by comparing both a weighted and non-weighted methods. A number of different data sets are considered including handwritten digit data and wavelet based texture features from an image data set.   
+
+%\ref{chap:datasets}
+Chapter 3 uses Clustream to identify corruption with acoustic sensing signals.  Distributed acoustic sensing (DAS) is a modern technique used to monitor oil flow at various depths throughout an oil  well. DAS uses a fibre-optic cable to record vibrations at very high resolutions, up to 10000 observations a second.  DAS is fairly cheap to implement and offers high frequency data, but unfortunately corruption can occur in the signal.  Our challenge is to identify the locations in the signal where corruption occurs. Existing methods for detecting and removing interference in DAS signals involve using offline, univariate changepoint detection. However DAS signals are multivariate and require online processing. We show that Clustream  provides an alternative approach to changepoints analysis to identify corruption within DAS signals.
+
+%\ref{chap:CSBGS}.
+Chapter 4 considers a different challenge, related to the identification of activity in surveillance videos, also called \textit{background subtraction}. Current methods for this require storing each pixel of every video frame which can be wasteful as most of this information refers to the uninteresting background. \textit{Compressive sensing}, a method for summarising data, can offer an efficient solution by utilising the fact that foreground is often sparse in the spatial domain. By making this assumption and applying a specific recovery algorithm to a trained background, it is possible to reconstruct the foreground, using only a low dimensional representation of the difference between the current frame and the estimated background scene. In this chapter we provide study  of the effect of two different recovery algorithms on performance of background subtraction. This chapter is a published conference paper \citep{Davies2013} and was awarded Best Paper at the Sensor Data Fusion Workshop 2013. 
+
+% \ref{chap:conc}
+All three chapters are linked by the challenge of gaining insight from data streams by analysing a simple summary of the stream and extrapolating the analysis to learn something about the data stream as a whole. Contributions of this thesis and observations on data stream analysis are gathered in Chapter 5  with suggestions for future areas of research.
+%General thoughts on using data summaries to analyse data streams are discussed
+
+%---------------- COMMENT FOR IMPORTING ----------------------
+%\pagebreak											%Comment for importing
+%\bibliographystyle{plainnat}		%Comment for importing
+%\bibliography{References}				%Comment for importing
+%\end{document}									%Comment for importing
+%-------------------------------------------------------------

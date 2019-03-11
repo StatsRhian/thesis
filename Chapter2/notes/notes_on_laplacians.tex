@@ -1,0 +1,63 @@
+\documentclass{article}
+
+\begin{document}
+
+\section{Notes on Laplacians}
+
+There are three major Graph Laplacians.
+
+Don't assume eigenvectors of a matrix are normalised. (Normalised means the eigenvector has length one).
+
+Assume eigenvectors ordered increasing (first $k$ eigenvectors means the $k$ smallest eigenvectors).
+
+
+Unnormalized Laplacian is L = D - W
+
+Normalized Laplacians
+
+$L_{sym} := D^{-1/2}LD^{-1/2} = I - D^{-1/2}WD^{-1/2}$
+
+This second bit follows since $D^{-1/2} D D^{-1/2}$
+
+Note: How to calculate $D^{1/2}$
+Let $V$ be the vector of eigenvalues of $D$, and let $Q$ be a matrix of the eigenvectors of $D$. 
+Then $D^{1/2} = Q diag(\frac{1}{\sqrt{V}})Q^T$
+
+Note that $L_{symm}$ is symmetric. 
+
+The other normalized Laplacian commonly used is $L_{rw} = D^{-1}L = I - D^{-1}W$
+
+Reference Chung 1997
+
+Dave says that the smallest eigenvectors of $D^{-1/2}L_{symm}D^{-1/2}$ are the same as the largest eigenvectors of $D^{-1/2}WD^{-1/2}$.
+
+This makes sense! As the eigenvalues of the identity matrix are all one. 
+
+Let $e1$ be the eigenvalues of $D^{-1/2}WD^{-1/2}$. and $e2$ be the eigenvalues of $D^{-1/2}LD^{-1/2}  = L_{symm}$, 
+then we see that $e2 = 1 - e1$ but in the reverse order. Therefore the e2 is increasing in size and e1 is decreasing in size. 
+
+Lets now look at incorporating an adapted affinty matrix.
+
+According to Dave...
+
+Let $s = (s_1, s_2, \hdots, s_k)$ be a vector where $s_i$ represents the number of points assigned to the $i^{th}$ microcluster.
+
+We wish to have an Affinity weighted by the 
+
+Let $A \in \mathbb{R}^{n \times n}$ be the affinity matrix of the micro-clustered data, i.e., with repeated elements for the data in each microcluster. Assume that the columns (and therefore rows) of A are ordered such that the first $n_1$ are associated with the data assigned to microcluster 1, which has size $n_1$ and the next $n_2$ with those assigned to microcluster 2, and so on.
+
+Let $\tilde{A}^{\prime} \in \mathbb{R}^{k \times k}$ have $i,j$-th element equal to $n_in_jA^{\prime}_{ij}$. $\tilde{A}$ is a valid affinity matrix since it is symmetric with non-negative entries. 
+If we wish to have $\tilde{A}_{ij} \leq 1$ then simply divide $\tilde{A}$ by $max_i n_i^2$, but this makes no difference to the spectral decomposition. 
+
+Let $D, D^{\prime}, \tilde{D}$ be the corresponding degree matricies and $L,  L^{\prime}, \tilde{L}$ be the corresponding normalized symmetric Laplacians.
+
+-----
+
+
+Rcode
+
+Firstly for the normalized Symmetric Laplacian.
+
+Choose $\tilde{A} = s%*%t(s)*A^{prime}$
+
+\end{document}

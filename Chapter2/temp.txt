@@ -1,0 +1,21 @@
+usepackage{tabularx}
+usepackage{arydshln,leftidx,mathtools}
+
+setlength{dashlinedash}{.4pt}
+setlength{dashlinegap}{.8pt}
+
+begin{document}
+[
+  leftidx{_{m-r}^{phantom{m-r}llap{$scriptstyle r$}}}{left( begin{array}{cc}
+    smash{overset{r}{B}} & mathclap{smash{overset{n-r}{C}}} 
+    hdashline
+    D & E
+  end{array} right)}{}
+]?    
+
+noindent
+begin{tabularx}{linewidth}{XX}
+  hdashline
+  ABC & DEF 
+  hdashline
+end{tabularx}

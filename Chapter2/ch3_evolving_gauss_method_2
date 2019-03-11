@@ -1,0 +1,48 @@
+The data set consists of 3 Gaussian clusters in 2 dimensions as shown in Figure \ref{fig:jump_data}. The stream is not a static stream, there is an abrupt change in mean at time 50001 when the black cluster jumps from the bottom left to the top right. 
+
+\begin{figure}[!h]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{method_2_20160615/cluster_jump_a}
+  \caption{First 10,000 points}
+  \label{fig:jump_data_a}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{method_2_20160615/cluster_jump_b}
+  \caption{Second 10,000 points}
+  \label{fig:jump_dat_ba}
+\end{subfigure}
+    \caption{The jump dataset}
+\label{fig:jump_data}
+\end{figure}
+
+Figure \ref{fig:norm_jump} shows the performance of unweighted clustream, clustream and windowed spectral on this case (using the Method 2 of evaluating).
+
+\begin{figure}[!h]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{method_2_20160615/norm_jump_purity}
+  \caption{Purity}
+  \label{fig:norm_jump_purity}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{method_2_20160615/norm_jump_vmeasure}
+  \caption{V-measure}
+  \label{fig:norm_jump_vmeasure}
+\end{subfigure}
+    \caption{Performance on the jump dataset}
+\label{fig:norm_jump}
+\end{figure}
+
+We can see the all three algorithms deteriorate rapidly where the change occurs. Note that windowed spectral drops and then slowly recovers whilst the clustream algorithms both seem to slowly deteriorate over time. It seems like they might be converging but unfortunately the stream is not long enough to be conclusive.
+
+The question is, what makes a good clustering algorithm in this streaming case. I am currently limited to the restriction that the overall all number of macro clusters is assumed both known and fixed for the duration of the stream. Not only is this not realistic, but it means that after the point of change, clustream may have microclusters representing 4 clusters (remains of the old and starts of the new), but as I have fixed the true number of clusters always be equal to 3, the algorithm is forced to under perform.
+
+When a cluster jumps, should I instantly forget the old positioning and jump to using the new, or should I retain some elements of the old positioning?  Retaining the old position is useful as the cluster may return to it's original position (think periodic/seasonal data), so an algorithm that retains the old position should relearn it quicker than a windowed approach. I argue that the knowledge of previous steps in the stream is important to a point, and I think that the fairly natural weighting approach that Clustream uses is more subtle and more informative than the naivety of windowed algorithms. At the moment I don't have a sensible way to show this experimentally. I feel it is an important point to make but may need to be made verbally rather than experimentally. 
+
+I would like to be able to show that Clustream has some nice features and I would love to show where it can benefit over a simple windowed approach but at the moment this isn't working that well. Thoughts/help!?
+Perhaps we could come up with two methods for analysing data streams, one method that prioritises understanding the stream in its current state and one that values the understanding of the full stream?
+Figures/animations that show how the location of the microclusters evolve overtime may be helpful?
+

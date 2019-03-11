@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: chapter_first_half.aux
+The style file: plainnat.bst
+White space in argument---line 48 of file chapter_first_half.aux
+ : \bibdata{library,
+ :                   rhian}
+I'm skipping whatever remains of this command
+Database file #1: library.bib
+Repeated entry---line 869 of file library.bib
+ : @article{Ng2001
+ :                ,
+I'm skipping whatever remains of this entry
+You've used 18 entries,
+            2773 wiz_defined-function locations,
+            784 strings with 9764 characters,
+and the built_in function-call counts, 10766 in all, are:
+= -- 1070
+> -- 590
+< -- 14
++ -- 198
+- -- 180
+* -- 934
+:= -- 1626
+add.period$ -- 101
+call.type$ -- 18
+change.case$ -- 114
+chr.to.int$ -- 18
+cite$ -- 36
+duplicate$ -- 454
+empty$ -- 790
+format.name$ -- 206
+if$ -- 2300
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 18
+newline$ -- 143
+num.names$ -- 72
+pop$ -- 176
+preamble$ -- 1
+purify$ -- 96
+quote$ -- 0
+skip$ -- 369
+stack$ -- 0
+substring$ -- 504
+swap$ -- 100
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 198
+warning$ -- 0
+while$ -- 96
+width$ -- 0
+write$ -- 334
+(There were 2 error messages)
