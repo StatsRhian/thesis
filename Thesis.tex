@@ -1,87 +1,80 @@
-
 \RequirePackage{lineno} % need to install texlive-humanities
 \documentclass[12pt, a4]{report}
 \input{packages_input}
  
-       
+     
 %---------------------------------------------------------------
 %---BEGIN DOCUMENT----------------------------------------------
 %---------------------------------------------------------------
-    
+       
 \begin{document}     
+          
+%Titlepage 
+\thispagestyle{empty}
+\begin{center}   
+\begin{minipage}{0.75\linewidth}                                                    
+    \centering      
+    %Thesis   title 
+    \vspace{2cm}  
+  \Huge\textbf{Efficient Analysis of \\ Data Streams}\par 
+    {\Large Rhian Natalie Davies\par}
+    \vspace{2cm}
+    \begin{center}   
+    \includegraphics[width=0.6\linewidth]{figures/LU}                  
+    \end{center}    
+    \vspace{1cm}
+    {\Large Submitted for the degree of Doctor of Philosophy at Lancaster University.\par}
+    \vspace{1cm}
+%Date      
+    {\Large September 2017}
+\end{minipage}
+\end{center}   
 
-% %Titlepage
-% \thispagestyle{empty}
-% \begin{center}
-% \begin{minipage}{0.75\linewidth}
-%     \centering   
-% %Thesis title
-%     \vspace{2cm}
-%   \Huge\textbf{Analysis of Data Streams}\par %Classification methods for sensor-based signal monitoring
-%     \vspace{2cm}
-% %Author's name
-%     {\Large Rhian Natalie Davies\par}
-%     \vspace{2cm}
-% %STORi logos=
-%     \begin{center}
-%     \includegraphics[width=0.5\linewidth]{figures/stori.png}             
-%     \end{center}
-%     \vspace{2cm}
-% %Degree
-%     {\Large Submitted for the degree of Doctor of Philosophy at Lancaster University.\par}
-%     \vspace{1cm}
+\vfill       
+\hfill 
+\begin{minipage}{.45\linewidth}  
+\begin{flushright}                                      
+\includegraphics[width=0.6\linewidth]{figures/stori.png}
+\end{flushright} 
+\end{minipage}  
 
-% %Date
-%     {\Large March 2017}
-% \end{minipage}
-% \end{center}
-% \clearpage
+\clearpage
 
-% \pagestyle{plain}
+\pagestyle{plain}
 
-% \setpagewiselinenumbers
+\setpagewiselinenumbers
  
-% \modulolinenumbers[1]
-% \thispagestyle{empty}
+\modulolinenumbers[1]
+\thispagestyle{empty}
 
-
-% \pagebreak
-% \pagenumbering{Roman}
-% \setcounter{page}{1}
-% \input{Abstract/Abstract.tex} %No pre-emble, no begin and end document and no bibtex
-
-% \pagebreak
-%  \input{Acknowledgements/Acknowledgements.tex} %No pre-emble, no begin and end document and no bibtex
-
-% \pagebreak
-%  \chapter*{Declaration}
-% \addcontentsline{toc}{chapter}{Declaration}
-
-% %\begin{flushright}  
-% I declare that the work in this thesis has been done by myself and has not been submitted elsewhere for the award of any other degree.
-% \begin{flushright}
-%   Rhian Davies
-%  \end{flushright}
-
-% \pagebreak
-% \tableofcontents
-% \addcontentsline{toc}{chapter}{Contents}
 
 \pagebreak
-%\listoffigures
-%\addcontentsline{toc}{chapter}{List of Figures}
- 
-\pagebreak
-%\listoftables
-%\addcontentsline{toc}{chapter}{List of Tables}
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\input{Abstract/Abstract.tex} %No pre-emble, no begin and end document and no bibtex
 
 \pagebreak
-%\addcontentsline{toc}{chapter}{List of Abbreviations}
-%\input{AbbrevList/AbbrevList.tex} %No pre-emble, no begin and end document and no bibtex
+ \input{Acknowledgements/Acknowledgements.tex} %No pre-emble, no begin and end document and no bibtex
 
 \pagebreak
-%\addcontentsline{toc}{chapter}{List of Symbols}
-%\input{SymbolList/SymbolList.tex}  %No pre-emble, no begin and end document and no bibtex
+ \chapter*{Declaration}
+\addcontentsline{toc}{chapter}{Declaration}
+
+%\begin{flushright}  
+I declare that the work in this thesis has been done by myself and has not been submitted elsewhere for the award of any other degree. \\
+
+\noindent I declare that the word  count of this thesis is 23469 words.\\
+
+\noindent Chapter \ref{chap:CSBGS} has been accepted for publication as R. Davies, L. Mihaylova, N. Pavlidis, and I. A. Eckley. The effect of recovery algorithms on
+compressive sensing background subtraction. In \textit{Sensor Data Fusion: Trends, Solutions, Applications}, 1 -– 6, 2013.
+
+\begin{flushright}  
+  Rhian Davies
+ \end{flushright}
+
+\pagebreak
+\tableofcontents
+\addcontentsline{toc}{chapter}{Contents}
 
 %---------------------------------------------------------------
 \let\oldchapter\chapter
@@ -98,12 +91,12 @@
 %---------------------------------------------------------------
 %---CHAPTER 1 - Introduction --------------------------------------------------
 %---------------------------------------------------------------
-%\input{Chapter1/Chapter1.tex} %No pre-emble, no begin and end document and no bibtex
+\input{Chapter1/Chapter1.tex} %No pre-emble, no begin and end document and no bibtex
 
 % -----------------------------------------------------------------------------------
 %---CHAPTER 2 - Online Spectral Clustering ------------------------------------------
 %---------------------------------------------------------------
-%\input{Chapter2/Chapter2.tex} %No pre-emble, no begin and end document and no bibtex
+\input{Chapter2/Chapter2.tex} %No pre-emble, no begin and end document and no bibtex
 
 %---------------------------------------------------------------
 %---CHAPTER 3 - Analysis of Insurance Data -------------------------------------------
@@ -113,34 +106,36 @@
 %---------------------------------------------------------------
 %---CHAPTER 4  - Compressive Sensing Background Subtraction--------------
 %---------------------------------------------------------------
-%\input{Chapter4/Chapter4.tex} %No pre-emble, no begin and end document and no bibtex
+\input{Chapter4/Chapter4.tex} %No pre-emble, no begin and end document and no bibtex
 
 %---------------------------------------------------------------
 %---CHAPTER 5 - Conclusions ------------------------------------------------
 %---------------------------------------------------------------
-%\input{Chapter5/Chapter5.tex} %No pre-emble, no begin and end document and no bibtex
+\input{Chapter5/Chapter5.tex} %No pre-emble, no begin and end document and no bibtex
 
 %---------------------------------------------------------------
 %---CHAPTER A --------------------------------------------------
 %---------------------------------------------------------------
- 
-%\appendix
-%\chapter{Appendix}
-%\input{Appendix/Appendix.tex} %No pre-emble, no begin and end document and no bibtex
-    
+\appendix
+%\input{Appendix/Appendix_A.tex} %No pre-emble, no begin and end document and no bibtex
+
+%---------------------------------------------------------------
+%---CHAPTER B --------------------------------------------------
+%---------------------------------------------------------------
+\input{Appendix/Appendix_B.tex}     %No pre-emble, no begin and end document and no bibtex
+        
 %---------------------------------------------------------------
 %---BIBLIOGRAPHY------------------------------------------------
 %---------------------------------------------------------------
-   
+                                    
  
 \pagebreak
 \let\chapter\oldchapter
 \addcontentsline{toc}{chapter}{Bibliography}
-%\bibliographystyle{plainnatnourl}
-%\bibliographystyle{apalike}
 
-\bibliographystyle{plainnatnourl.bst} %This one or plainnnat
-\bibliography{/home/rhian/Dropbox/library,/home/rhian/Dropbox/rhian}
+\bibliographystyle{plainnatnourl.bst}
+\bibliography{library_thesis,rhian}
 
+ 
 \end{document}
 

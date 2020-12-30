@@ -11,43 +11,46 @@
 %\tableofcontents
 %-------------------------------------------------------------
 
-\chapter{Conclusions and Future Work}
+\chapter{Conclusion}
 \label{chap:conc}
-\begin{itemize}
-\item Summarise all contributions
-\item Online EM links with Clustream
-\item Difficulty in evaluating performance on data streams
-\end{itemize}
+%\begin{itemize}
+%\item Summarise all contributions
+%\item Online EM links with Clustream
+%\item Difficulty in evaluating performance on data streams
+%\end{itemize}
+
+Data streams  provide a challenging environment for statistical analysis. Data points can arrive at a high velocity and may need to be deleted once they have been observed. Due to these restrictions, standard techniques are not applicable to the data streaming scenario. This leads to the need of data summaries to represent the data stream. This thesis has explored how data summaries can be used to perform clustering or classification on data streams across a broad range of applications.
+
+%More motivation from intro. Problems with data streams.
+
+%%% CH2
+In Chapter 2 we introduced an algorithm for performing spectral clustering on data streams: spectral CluStream. Prior to this work, there did not exist a method for applying spectral clustering to data streams. We considered two variants of this algorithm, a weighted and non-weighted version. Despite having a mathematically valid affinity matrix, the weighted spectral CluStream was found to have poor performance and fundamental difficulties clustering even simple simulated data. This appears to be caused by the weightings dominating the scaling parameter which is essential to spectral clustering. However, the unweighted spectral CluStream was shown to have good performance on par with a windowed approach to spectral clustering even on tricky image data sets. One issue was identified with the unweighted spectral CluStream deletion policy. When dealing with non-stationary data streams, historic micro-clusters could cause poor performance. A correction was proposed in order to retain the good performance but at the cost of using additional micro-clusters to track the stream.
+
+% why does weighted spectral CluStream does not perform well empirically? Further investigation into the effect of the scaling parameter $\sigma$ and whether localisation affects performance negatively would be of interest.
+% The deletion policy of CluStream also has issues which need addressing, starting perhaps with removing the assumption that time stamps arrivals are Normally distributed.
+
+%%% CH3
+Chapter 3 was motivated by an application which arises in the oil industry where engineers wish to identify corruption within an acoustic signal. This is a difficult problem, particularly as the notion of corruption is not well defined by engineers at present. A common method used to detect changes in structure would be to use changepoint detection methods. However, due to the multiple time series of the DAS data, changepoint methods become computationally in-feasible for large data sets. We re-framed the multiple time series problem as a clustering problem by treating each time series as a different data dimension. We provided a flexible solution combining the streaming capabilities of CluStream with k-means and a similarity metric to detect boundary locations. These boundary locations can be used to isolate sections of the signal which are corrupted. We tested this method on the DAS data set for a range of values of $k$, the number of clusters and $\gamma$, the search parameter. The boundary locations identified by this method were found to be fairly insensitive to the parameter values except at extremities.
+
+%%% CH4
+Finally in Chapter 4 we considered the different problem of identifying areas of foreground activity within a compressed video stream. Two different recovery algorithms had recently been suggested  in the literature. We compared the  performance of the two recovery algorithms and showed that Basis Pursuit slightly outperformed Orthogonal Matching Pursuit. However, the pixels identified as foreground were similar for both algorithms. The effect of the stopping criterion for OMP was seen to have a large impact on performance, with the best results being observed when the value of stopping criterion was close to the true sparsity of the current video frame. This reinforces the necessity for adaptive stopping criterion in order to cope with varying sparsity in a video. We also investigated the performance for different compression ratios. The best performance was observed at a compression ratio of between $25 - 35\%$. 
 
 
-Notes from Dave's Thesis 1.3
+%%%%%%%%%%%%%%%% Future Work %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The practical challenges associated with clustering data streams are clear,
-however the data stream paradigm also poses philosophical questions about
-what defines a cluster. Consider a situation in which the generative process
-undergoes an abrupt change, such that the data distribution after the change
-is essentially unrecognisable in the context before the change. Even if the
-number of clusters under the new distribution is the same, how can one associate
-data which arrived before the change with those arriving afterwards?
-If the location of such abrupt changes is known, it could be argued that
-the previous clusters no longer exist, and any information drawn from the
-new clusters should be independent of what came before. However, abrupt
-changes might not affect all clusters, and discarding past information could
-be detrimental if unnecessary. If the location of changes is unknown, then
-the problem becomes immeasurably more complex. Attempting to describe
-clusters as persistent entities is almost paradoxical if clusters are described as
-groups of data. It seems necessary, therefore, to attempt to estimate features
-of the underlying generative process and define clusters relative to them. In
-addition, it is preferable to identify changes in the generative process which
-affect the cluster definitions, rather than discounting information from previous
-data which may or may not be related to the data relevant to the current
-cluster definitions. Ideally, in addition the identification of changes to the
-process should be at a local level so that information from persistent features
-of the process is not discarded.
+%Links with Online EM 
+%What is a cluster
+%dealing with abrupt changes
+%number of clusters are the same
+%linking data which arrived before and after a change?
+%Link change detection with clusters to forget old clusters once a change has been observed. 
+%Clusters should be independent after an abrupt change.b
 
 
+Throughout the thesis we assumed that we had access to the true underlying number of clusters $k$. This is a common assumption made in clustering, however when dealing with real data this is not a realistic assumption. This is particularly an issue in the data streaming setting as the true number of clusters may change as the data stream progresses. Clusters may become irrelevant and stop being updated and new clusters may join the data stream.
 
 
+One difficulty that we faced throughout the thesis was evaluating algorithmic performance on data streams. If the number of true clusters changes but we are constrained to keeping $k$ fixed this can be an issue. There does not exist an obvious method for evaluating performance of clustering algorithms in the streaming setting. The current standard performance measures take into account only how well the current clustering represents the current state of the stream. It would be useful to develop methods appropriate for evaluating non-stationary data streams. For example, we might wish to judge how well a clustering algorithm learns about the historical state of the stream as well its ability to adapt quickly to new information.
 
 
 

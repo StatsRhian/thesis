@@ -18,24 +18,23 @@
 \section{Introduction}
 \label{sec:das_intro}
 
-In Chapter \ref{chap:spectral} we introduced the Clustream \citep{Aggarwal2003} algorithm and demonstrated how it could be used to create an online Spectral Clustering algorithm. In this chapter we apply Clustream to identify corruption within acoustic sensing signals.  Distributed acoustic sensing (DAS) is a modern technique used to monitor oil flow at various depths throughout an oil  well. DAS uses a fibre-optic cable to record vibrations at very high resolutions, up to 10000 observations a second.  DAS is fairly cheap to implement and offers high frequency data, but unfortunately corruption can occur in the signal.  Our challenge is to identify the locations in the signal where corruption occurs. Existing methods for detecting and removing interference in DAS signals involve using offline, univariate changepoint detection. However DAS signals are multivariate and require online processing. In this chapter we show that Clustream  provides an alternative approach to  changepoints analysis to identify corruption within DAS signals.
+In Chapter \ref{chap:spectral} we introduced the CluStream \citep{Aggarwal2003} algorithm and demonstrated how it could be used to create an online spectral clustering algorithm. In this chapter we apply CluStream to identify corruption within acoustic sensing signals.  Distributed acoustic sensing (DAS) is a modern technique used to monitor oil flow at various depths throughout an oil  well. DAS uses a fibre-optic cable to record vibrations at very high resolutions, up to 10000 observations a second.  DAS is fairly cheap to implement and offers high frequency data, but unfortunately corruption can occur in the signal.  Our challenge is to identify the locations in the signal where corruption occurs. Existing methods for detecting and removing interference in DAS signals involve using offline, univariate changepoint detection. However DAS signals are multivariate and require online processing. In this chapter we show that CluStream  provides an alternative approach to  changepoints analysis to identify corruption within DAS signals.
 
 \section{Motivation}
 \label{sec:das_motivation}
 
 \subsection{What is Distributed Acoustic Sensing?}
 
-Distributed Acoustic Sensing (DAS) is a technique which uses fibre-optic cables to measure vibrations travelling through the ground. DAS systems have recently become popular in the oil and gas industry  and are used to monitor oil flow \citep{Silkina2014, VanderHorst2014} and to detect leaks in abandoned gas wells \citep{Boone2014}. When vibrations pass through the fibre-optic cable, they induce a change in the intensity of the reflection of the pulses of light being passed through the cable. This provides very high frequency data, often as high as 10kHz. It is also possible to collect this data at many different depths in the well simultaneously. Therefore DAS data is very high frequency and has high dimensionality. An example of DAS signal data is given in Figure \ref{fig:oil_example}.
+Distributed Acoustic Sensing (DAS) is a technique which uses fibre-optic cables to measure vibrations travelling through the ground. DAS systems have recently become popular in the oil and gas industry  and are used to monitor oil flow \citep{Silkina2014, VanderHorst2014} and to detect leaks in abandoned gas wells \citep{Boone2014}. When vibrations pass through the fibre-optic cable, they induce a change in the intensity of the reflection of the pulses of light being passed through the cable. This provides very high frequency data, potentially as high as 10kHz. It is also possible to collect this data at many different depths in the well simultaneously. Therefore DAS data has both high frequency and high dimensionality.
 
 \begin{figure}[h]
    \centering
-   \includegraphics[width = 14cm]{multiplot_wider} 
-   %\includegraphics[width = 18cm]{multiplot_landscape} 
+   \includegraphics[width = 14cm]{multiplot_wider_new} 
    \caption{An example of acoustic sensing data observed at various depths in an oil well. }
    \label{fig:oil_example}
  \end{figure}
 
-In the figure, each plot is a series obtained at a different depth within the oil well. We can  see that there are some disturbances in the signal. Engineers refer to these disturbances as corrupted data and the challenge of this application is to locate where the data is corrupted. We are told that if corruption is observed at one depth then the effect is also likely to be observed at multiple other depths simultaneously. This is visible in Figure \ref{fig:oil_example}, particularly at time point $t =  3750$, where there is a big drop in the signal which occurs in all ten series.
+An example of DAS signal data is given in Figure \ref{fig:oil_example}. In the figure, each plot is a series obtained at a different depth within the oil well. We can  see that there are some disturbances in the signal. Engineers refer to these disturbances as corrupted data and the challenge of this application is to locate where the data is corrupted. We are told that if corruption is observed at one depth then the effect is also likely to be observed at multiple other depths simultaneously. This is visible in Figure \ref{fig:oil_example}, particularly at time point $t =  3750$, where there is a big drop in the signal which occurs in all ten series.
 
 \subsection{Relevant literature}
 
@@ -45,13 +44,13 @@ Much of the work in changepoint detection has focused on the scenario where the 
 
 %The simplest version is detecting whether there is a single changepoint or not. This is framed as a hypothesis test using a general likelihood ratio. binary segmentation \cite{Maidstone2016}.such as the PELT method of \cite{Killick2012} %WBS method  \citep{Fryzlewicz2014}%Some dynamic programming Most methods are offline. There is a need for online.Online changepoint methods \cite{Hawkins2010}
 
-\subsection{Using  Clustream to identify boundary locations}
+\subsection{Using  CluStream to identify boundary locations}
 
 We consider the problem of identifying corruption within a DAS data stream as a two-stage clustering problem. The first stage is purely online, and consists of updating micro-clusters as a way of storing information about the data stream without storing all of the data points.  The second stage is applied on a small, recent section of the data stream, and allows the user to request a segmentation of that section of the stream to look for where the signal is corrupted. 
 \subsection{Stage one: Micro-clustering}
 \label{sec:das_stage_1}
 
-Stage one is essentially the micro-clustering step of Clustream introduced in Section \ref{sec:microSpec}.  Clustream is a method of clustering data streams, based on the concept of micro-clusters. Micro-clusters are data structures which summarise a set of instances from the stream, and are composed of a set of statistics which are easily updated and allow fast analysis.  The number of micro-clusters used is a user chosen parameter. Using a large number of micro-clusters will represent the data stream better than a smaller number, at the cost of increased computation. We found using 250 micro-clusters to be sufficient for this application. 
+Stage one is essentially the micro-clustering step of CluStream introduced in Section \ref{sec:microSpec}.  CluStream is a method of clustering data streams, based on the concept of micro-clusters. Micro-clusters are data structures which summarise a set of instances from the stream, and are composed of a set of statistics which are easily updated and allow fast analysis.  The number of micro-clusters used is a user chosen parameter. Using a large number of micro-clusters will represent the data stream better than a smaller number, at the cost of increased computation. We found using 250 micro-clusters to be sufficient for this application. 
 %The statistics we track are defined in equation \eqref{eq:microcluster_def}, $\boldsymbol{CF1^x_j}$ is the sum of all observed data in micro-cluster $j$, $\boldsymbol{CF2^x_j}$ is the sum of the squares of the data and $n_j$ is the number of elements assigned to that micro-cluster. $CF1^t_j$ and $CF2^t_j$ refer to the sum of the time stamps, and the sum of squared time stamps respectively.
 \subsection{Stage two: Identifying corruption}
 \label{sec:das_stage_2}
@@ -60,46 +59,46 @@ Stage two is an offline procedure which is performed in batch on a recent sectio
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width = 13cm]{k_4_rep_1_series_1.pdf}
+  \includegraphics[width = 13cm]{k_4_rep_1_series_1_new.pdf}
   \caption{Series one of the DAS data coloured by macro-cluster assignments.}
   \label{fig:das_kmeans_col}
 \end{figure}
 
-Visually we can get intuition of where a change in structure occurs as indicated by the change in cluster assignment. In Figure \ref{fig:das_kmeans_col} this is shown as a change in the colour of the signal. However, we would like to output a set of locations in time where change occurs. Note that during the clustering steps, we do not use the timestamps as input to the clustering. This means that we do not specifically tell the clustering to consider points closer in time as more similar. As a result, there is not necessarily a clear change in the cluster assignments.
-The method that we use to convert the clustering of assignments into a set of boundary locations is as follows. Consider a data point in $\{ x_1, ..., x_N \}$, lets call it $\tau$. In order to decide whether it is likely to be a boundary point we consider the k-means assignments of the data points directly before $\tau$ and directly after $\tau$. If the assignments of those points are different, $\tau$ is likely to be a boundary location, if the assignments either side of $\tau$ are similar then $\tau$ is not likely to be a boundary location. The number of of data points we look either side of $\tau$ is given by the search parameter $\gamma$. A simple example is shown in Figure \ref{fig:change_in_mean}.
+Informally, it appears that we can visualise where a change in structure occurs as indicated by the change in cluster assignment. In Figure \ref{fig:das_kmeans_col} this is shown as a change in the colour of the signal. However, we would like to output a set of locations in time where change occurs. Note that during the clustering steps, we do not use the timestamps as input to the clustering. This means that we do not specifically tell the clustering to consider points closer in time as more similar. As a result, there is not necessarily a clear change in the cluster assignments.
+The method that we use to convert the clustering of assignments into a set of boundary locations is as follows. Consider a data point in $\{ x_1, ..., x_N \}$, lets call it $\tau$. In order to decide whether it is likely to be a boundary point we consider the k-means assignments of the data points directly before $\tau$ and directly after $\tau$. If the assignments of those points are different, $\tau$ is likely to be a boundary location, if the assignments either side of $\tau$ are similar then $\tau$ is not likely to be a boundary location. The number of data points we look either side of $\tau$ is given by the search parameter $\gamma$. A simple example is shown in Figure \ref{fig:change_in_mean}.
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}{0.45\textwidth}
+  \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{cim_6.pdf}
-    \caption{$\tau = 700 $, $\gamma = 50$}
+    \includegraphics[width = \textwidth]{cim_6_new}
+    \caption{$\tau = 700 $, $\gamma = 50.$}
   \label{fig:cim_6}
   \end{subfigure}
-  \begin{subfigure}{0.45\textwidth}
+  \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{cim_7.pdf}
-  \caption{$\tau = 1000 $, $\gamma = 50$}
+    \includegraphics[width = \textwidth]{cim_7_new}
+  \caption{$\tau = 1000 $, $\gamma = 50.$}
   \label{fig:cim_7}
   \end{subfigure}
   \caption{Example of searching for boundary locations on a simple change in mean example. The value of $\tau$ is given by the vertical red line, and the green lines show $\tau  - \gamma$ and $\tau + \gamma - 1$.}
   \label{fig:change_in_mean}
 \end{figure}
 
-In Figure \ref{fig:cim_6}, $\tau = 700$ and we can see that the 50 points before $\tau$ are the same colour as the 50 points after $\tau$. This implies that $\tau$ is not a likely to be a boundary location. In Figure \ref{fig:cim_7}, $\tau = 1000$ and we can see that the 50 points before $\tau$ are mostly different in colour to the 50 points after $\tau$. This implies that $\tau$ is likely to be a good boundary location. In order to quantify this, we use a categorical similarity measure. Define set $L$ to be the set of points to the left of $\tau$ given by $ L = \{x_{\tau - \gamma}, \ldots, x_{\tau -1}\}$. Similarly, define set $R$ to be the set of points to the right of $\tau$  given by $R = \{x_{\tau}, \ldots, x_{\tau + \gamma -1}\}$. In order to calculate how similar the cluster assignments of sets $L$ and $R$ are we calculate the following similarity metric. Let $n_{L,j}$ be the number of data points in set $L$ assigned to cluster $j$, where $j \in 1, \ldots, k$ and similarly for $n_{R,j}$. The categorical similarity metric is defined in equation \eqref{eq:sim_cont_tab}.
+In Figure \ref{fig:cim_6}, $\tau = 700$ and we can see that the 50 points before $\tau$ are assigned to the same cluster as the 50 points after $\tau$. This implies that $\tau$ is not a likely to be a boundary location. In Figure \ref{fig:cim_7}, $\tau = 1000$ and we can see that the 50 points before $\tau$ are mostly different in colour to the 50 points after $\tau$. This implies that $\tau$ is likely to be a good boundary location. In order to quantify this, we use a categorical similarity measure. To this end, we define the set $L$ to be the set of points to the left of $\tau$ given by $ L = \{x_{\tau - \gamma}, \ldots, x_{\tau -1}\}$. Similarly, we define the set $R$ to be the set of points to the right of $\tau$  given by $R = \{x_{\tau}, \ldots, x_{\tau + \gamma -1}\}$. In order to calculate how similar the cluster assignments of sets $L$ and $R$ are we calculate the following similarity metric. Let $n_{L,j}$ be the number of data points in set $L$ assigned to cluster $j$, where $j \in 1, \ldots, k$ and similarly for $n_{R,j}$. The categorical similarity metric is defined in equation \eqref{eq:sim_cont_tab}. This metric was inspired by the $\chi^2$ test statistic, although since the size of sets $L$ and $R$ are equal we can use a related, more intuitive comparison. 
 
 \begin{equation}
   \label{eq:sim_cont_tab}
   \text{sim}(\tau, \gamma) = \frac{\sum_{j = 1}^{k} \min (n_{L,j}, n_{R,j})}{\gamma}.
 \end{equation}
  
-Note that this categorical similarity measure will be bound between $0$ and $1$, where 0 indicates perfect dissimilarity and 1 indicates that the sets are identical.  We can think of this similarity measure as an indicator of how likely $\tau$ is to be a boundary location. If $\text{sim}(\tau, \gamma) = 0$ then $\tau$ is very likely to be a boundary location. We search over all values of $\tau \in \{\gamma+1 :  N-\gamma+1\}$ and define the set of boundary locations $B$ to be the values of $\tau$ which satisfy $\text{sim}(\tau, \gamma) = 0 $. The whole procedure for Stage 2 is summarised in Algorithm \ref{alg:boundary_locations}. 
+Note that this categorical similarity measure will be bound between $0$ and $1$, where 0 indicates perfect dissimilarity and 1 indicates that the distribution of the sets is identical.  We can think of this similarity measure as an indicator of how likely $\tau$ is to be a boundary location. If $\text{sim}(\tau, \gamma) = 0$ then $\tau$ is very likely to be a boundary location. We search over all values of $\tau \in \{\gamma+1 :  N-\gamma+1\}$ and define the set of boundary locations $B$ to be the values of $\tau$ which satisfy $\text{sim}(\tau, \gamma) = 0 $. The whole procedure for Stage 2 is summarised in Algorithm \ref{alg:boundary_locations}. 
 
 \begin{algorithm}
 \caption{Stage Two: Identifying Boundary Locations}  
 \begin{algorithmic}[1]
 \REQUIRE Data points =  $\boldsymbol{x_1} \ldots \boldsymbol{x_N}$, micro-cluster centres, number of macro-clusters $k$, search parameter $\gamma$.
-\ENSURE A set of boundary locations $B$
+\ENSURE A set of boundary locations $B$.
 \STATE Set $B = \emptyset$. 
 \STATE Apply k-means on the micro-cluster centres.
 \STATE Assign each data point in  $\{\boldsymbol{x_1} \ldots \boldsymbol{x_N}\}$ to a k-means macro-cluster.
@@ -107,7 +106,7 @@ Note that this categorical similarity measure will be bound between $0$ and $1$,
 \STATE Calculate $n_{L,j}$ and $n_{R,j}$ for all $j \in \{1, \ldots, k\}$. 
 \STATE Calculate $\text{sim}(\tau, \gamma) = \frac{\sum_{j = 1}^{k} \min (n_{L,j}, n_{R,j})}{\gamma}$. 
   \IF{$\text{sim}(\tau, \gamma) = 0$}
-   \STATE $B$ = $B \cup \tau$ 
+   \STATE $B$ = $B \cup \tau$ .
   \ENDIF
 \ENDFOR
 \end{algorithmic}
@@ -120,19 +119,19 @@ The number of boundary locations  identified  given by $|B|$  will depend on the
 \section{Results on DAS data}
 \label{sec:das_analysis}
 
- The aim of this section is to use Clustream with Algorithm \ref{alg:boundary_locations} to identify the location of corrupted data within acoustic sensing data. The data stream we consider consists of 10000 data points (one second of data) and ten different series relating to different depths within the oil well. In order to compare performance of our algorithm we compare against a ground truth. The ground truth is shown in Figure \ref{fig:ground_truth_das} and consists of six manually chosen boundary locations. 
+We now explore the use of CluStream with Algorithm \ref{alg:boundary_locations} to identify the location of corrupted data within acoustic sensing data. The data stream we consider consists of 10000 data points (one second of data) and ten different series relating to different depths within the oil well. In order to compare performance of our algorithm we compare against a ground truth. The ground truth is shown in Figure \ref{fig:ground_truth_das} and consists of six manually chosen boundary locations. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width = 15cm]{ground_truth_all}
-  \caption{Ground truth for the DAS data shown for all ten series. The six true boundary locations are shown with red vertical lines. }
+  \includegraphics[width = 15cm]{ground_truth_new}
+  \caption{Ground truth for the DAS data shown for all ten series. The six true boundary locations are shown with coloured vertical lines. }
   \label{fig:ground_truth_das}
 \end{figure}
 
 We compare the boundary locations found by Algorithm \ref{alg:boundary_locations} against the ground truth by using the V-measure. The V-measure \citep{Rosenberg2007} is a performance measure which rates the quality of a given segmentation compared to the ground truth segmentation. V-measure rates the segmentation by balancing both homogeneity and completeness.  A larger V-Measure value indicates higher accuracy, with a value of 1 indicating a perfect segmentation. For full details, see in Section \ref{sec:performance}.
 
 
-Clustream was applied on the DAS data stream using 250 micro-clusters. At $t = 10000$ we applied Algorithm \ref{alg:boundary_locations} on the signal for a range of values of $k$ and $\gamma$ to identify boundary locations. Due to the randomness induced by the k-means step, the results for each experimental setting are averaged out over 10 runs. The variation between runs was minimal. The average V-measure for each setting is presented in Table \ref{tab:vmeasure_das}.
+CluStream was applied on the DAS data stream using 250 micro-clusters. At $t = 10000$ we applied Algorithm \ref{alg:boundary_locations} on the signal for a range of values of $k$ and $\gamma$ to identify boundary locations. Due to the randomness induced by the k-means step, the results for each experimental setting are averaged out over 10 runs. The variation between runs was minimal. The average V-measure for each setting is presented in Table \ref{tab:vmeasure_das}.
 
  \begin{table}[H]
  \centering
@@ -169,7 +168,7 @@ The best performance in terms of V-measure is given by $k = 3$, $\gamma = 5$ how
 7 & 18.8 & 11.6 & 9.6 & 9   & \bftab 8.6 & 8   & 8   & 7.6 & 7   & 6.4 \\
 8 & 18.4 & 11.6 & 9.6 & 9.4 & \bftab 8.6 & 8.4 & 8.4 & 7.6 & 7.4 & 7.4 \\ \hline
 \end{tabular}
-\caption{Average number of boundary locations identified on the DAS data for a range of $k$ and $\gamma$. The number of boundary locations corresponding to the best performing V-measure for each value of $k$ is highlighted in bold.}
+\caption{Average number of boundary locations identified on the DAS data for a range of $k$ and $\gamma$. The number of boundary locations corresponding to the best performing V-measure for each value of $k$ is highlighted in bold. The ground truth has $|B|=6$.}
 \label{tab:numLoc_das}
 \end{table}
 
@@ -180,50 +179,50 @@ In Table \ref{tab:numLoc_das} we can see that the the number of boundary locatio
   \centering
   \begin{subfigure}{0.45\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{best/best_k_2_gamma_5.pdf}
-    \caption{$k = 2 $, $\gamma = 5$, $|B| = 2$}
+    \includegraphics[width = \textwidth]{best/best_k_2_gamma_5_colour.pdf}
+    \caption{$k = 2 $, $\gamma = 5$, $|B| = 2$.}
   \label{fig:best_2}
   \end{subfigure}
  \begin{subfigure}{0.45\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{best/best_k_3_gamma_5.pdf}
-    \caption{$k = 3 $, $\gamma = 5$, $|B| = 6$}
+    \includegraphics[width = \textwidth]{best/best_k_3_gamma_5_colour.pdf}
+    \caption{$k = 3 $, $\gamma = 5$, $|B| = 6$.}
   \label{fig:best_3}
   \end{subfigure} \\
 
   \begin{subfigure}{0.45\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{best/best_k_4_gamma_5.pdf}
-    \caption{$k = 4 $, $\gamma = 5$, $|B| = 8$}
+    \includegraphics[width = \textwidth]{best/best_k_4_gamma_5_colour.pdf}
+    \caption{$k = 4 $, $\gamma = 5$, $|B| = 8$.}
   \label{fig:best_4}
   \end{subfigure}
  \begin{subfigure}{0.45\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{best/best_k_5_gamma_20.pdf}
-    \caption{$k = 5 $, $\gamma = 20$, $|B| = 7$}
+    \includegraphics[width = \textwidth]{best/best_k_5_gamma_20_colour.pdf}
+    \caption{$k = 5 $, $\gamma = 20$, $|B| = 7$.}
   \label{fig:best_5}
   \end{subfigure} \\
 
   \begin{subfigure}{0.45\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{best/best_k_6_gamma_20.pdf}
-    \caption{$k = 6 $, $\gamma = 20$, $|B| = 8$}
+    \includegraphics[width = \textwidth]{best/best_k_6_gamma_20_colour.pdf}
+    \caption{$k = 6 $, $\gamma = 20$, $|B| = 8$.}
   \label{fig:best_6}
   \end{subfigure}
  \begin{subfigure}{0.45\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{best/best_k_7_gamma_25.pdf}
-    \caption{$k = 7 $, $\gamma = 25$, $|B| = 9$}
+    \includegraphics[width = \textwidth]{best/best_k_7_gamma_25_colour.pdf}
+    \caption{$k = 7 $, $\gamma = 25$, $|B| = 9$.}
   \label{fig:best_7}
   \end{subfigure} \\
 
  \begin{subfigure}{0.45\textwidth}
     \centering
-    \includegraphics[width = \textwidth]{best/best_k_8_gamma_25.pdf}
-    \caption{$k = 8 $, $\gamma = 25$, $|B| = 9$}
+    \includegraphics[width = \textwidth]{best/best_k_8_gamma_25_colour.pdf}
+    \caption{$k = 8 $, $\gamma = 25$, $|B| = 9$.}
   \label{fig:best_8}
   \end{subfigure} \\
-    \caption{Each plot shows the boundary locations (red lines) identified  under different parameter settings. We show one plot for each value of $k$, and use the most appropriate value of $\gamma$ in each setting. The number of boundary locations identified is given by $|B|$.}
+    \caption{Each plot shows the boundary locations (coloured lines) identified  under different parameter settings. We show one plot for each value of $k$, and use the most appropriate value of $\gamma$ in each setting. The number of boundary locations identified is given by $|B|$.}
   \label{fig:best_k_gamma}
 \end{figure}
 
@@ -233,13 +232,13 @@ Only plots for Series 1 are shown in Figure \ref{fig:best_k_gamma} here but simi
 \section{Conclusion}
 \label{sec:das_conc}
 
-In this chapter we have demonstrated that Clustream can provide an alternative to changepoint detection methods for identifying corruption in digital acoustic sensing signals. The fact that Clustream can be run efficiently online means that it can cope well with the high frequency and high dimensionality data created by digital acoustic sensing. 
+In this chapter we have demonstrated that data summaries constructed by CluStream can help provide an alternative to changepoint detection methods for identifying corruption in digital acoustic sensing signals. The fact that CluStream can be run efficiently online means that it can cope well with the high frequency and high dimensionality data created by digital acoustic sensing. 
 
 In order to frame the time-series as a clustering problem, we treated each time-series as a different data dimension. Interestingly the initial k-means clustering assignments look visually sensible in a temporal sense, despite no temporal information being given to the k-means algorithm.
 
-We have developed an Algorithm which uses cluster assignments to identify boundary locations within the DAS signal. This algorithm was tested on the DAS data set for a range of values of $k$ and $\gamma$ and the results were found to be robust. As it is not clear exactly what engineers wish to find when searching for corruption, offering a range of potential boundary locations by varying $\gamma$ and $k$ can be useful. 
+We have developed an algorithm which uses a change in cluster assignments to identify boundary locations within the DAS signal. This algorithm was tested on the DAS data set for a range of values of $k$ and $\gamma$ and the results were found to be robust. As engineers are not clear exactly what defines a corrupted signal, offering a range of potential boundary locations by varying $\gamma$ and $k$ allows a set of solutions to be considered. 
 
-When detecting boundary locations, we considered only the time points $\tau$ where $\text{sim}(\tau, \gamma)=0$. It would be possible to instead threshold $\text{sim}(\tau, \gamma)$  to increase the number of boundary locations identified by the algorithm. It would  also be possible to consider  $\text{sim}(\tau, \gamma)$ as a function of $\tau$ and treat identifying boundary locations as a local minima problem.
+When detecting boundary locations, we considered only the time points $\tau$ where $\text{sim}(\tau, \gamma)=0$. It would be possible to instead threshold $\text{sim}(\tau, \gamma)$  to increase the number of boundary locations identified by the algorithm. It would  also be possible to consider  $\text{sim}(\tau, \gamma)$ as a function of $\tau$ and treat identifying boundary locations as a local minima problem. However, we suspect that this would lead to many duplicate boundary locations being identified which would not be of use to the application. 
 %The detection of changes in dependence structure is an important aspect of analysing many real-world time series, in particular acoustic sensing data.  estimating the number and locations of second-order changepoints.
 
 
@@ -322,11 +321,11 @@ When detecting boundary locations, we considered only the time points $\tau$ whe
 % \begin{figure}[H]
 %   \centering
 %   \includegraphics[width = 12cm]{10_channels/10_channels_end.pdf}
-%   \caption{Segmentation using Clustream, red lines represent estimated boundary locations.}
+%   \caption{Segmentation using CluStream, red lines represent estimated boundary locations.}
 %   \label{fig:das_clustream_segmented}
 % \end{figure}
 
-% Visual inspection of the results shows that Clustream provides a sensible segmentation of the data across all 10 series. Due to the nature of Clustream, the location of these boundaries are updated online. Figure \ref{fig:online_das_updates} demonstrates how the location of the boundaries is updated as the data stream progresses. 
+% Visual inspection of the results shows that CluStream provides a sensible segmentation of the data across all 10 series. Due to the nature of CluStream, the location of these boundaries are updated online. Figure \ref{fig:online_das_updates} demonstrates how the location of the boundaries is updated as the data stream progresses. 
 
 % \begin{figure}[H]
 %   \centering
@@ -352,5 +351,5 @@ When detecting boundary locations, we considered only the time points $\tau$ whe
 %   \label{fig:online_das_updates}
 % \end{figure}
 
-% In the plots, the estimated boundaries are given in red lines and the green line indicates how much of the signal has been observed so far. Only one of the ten series is shown for clarity. We can see that Clustream is quick to update the boundary locations estimates. This can be seen in Figure \ref{fig:das_t_4000}, where the change generated by the drop in the signal is identified after only a few hundred observations.
+% In the plots, the estimated boundaries are given in red lines and the green line indicates how much of the signal has been observed so far. Only one of the ten series is shown for clarity. We can see that CluStream is quick to update the boundary locations estimates. This can be seen in Figure \ref{fig:das_t_4000}, where the change generated by the drop in the signal is identified after only a few hundred observations.
 
