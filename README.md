@@ -1,5 +1,7 @@
 # Phd Thesis: Efficient Analysis of Data Streams
 
+[Download](https://statsrhian.github.io/thesis/Thesis.pdf) the pdf
+
 ## Abstract
 
 Data streams provide a challenging environment for statistical analysis. Data points can
